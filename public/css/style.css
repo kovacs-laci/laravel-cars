@@ -1,0 +1,85 @@
+a {
+    text-decoration: none;
+}
+img {
+    width: fit-content;
+}
+
+ul {
+    width: fit-content;
+}
+
+li {
+    list-style: none;
+}
+
+nav {
+    align-content: center;
+}
+
+nav li {
+    display: inline;
+}
+
+fieldset {
+    border: none;
+}
+
+.bold {
+    font-weight: bold;
+}
+.col {
+    padding-left: 5px;
+}
+
+.id {
+    color: gray;
+}
+
+.container {
+    width: fit-content;
+}
+
+.even {
+    background-color: lightgray;
+}
+.header {
+    font-weight: bold;
+}
+.logout {
+    display: inline;
+}
+
+.paginator {
+    margin: 3em auto 1em auto;
+    width: fit-content;
+    text-align: center;
+}
+.paginator svg {
+    width: 1em;
+    height: 1em;
+    margin: 0 0.5em;
+    cursor: pointer;
+}
+
+.edit {
+    color: tomato;
+}
+.trash {
+    color: crimson;
+}
+.right {
+    display: inline-flex;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.row {
+    display: flex;
+    padding: 5px;
+}
+
+
+.uppercase {
+    text-transform:uppercase;
+}

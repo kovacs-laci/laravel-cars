@@ -1,0 +1,86 @@
+{
+  "id": "84e32041-ccff-415b-a850-537290c8ad53",
+  "version": "2.0",
+  "name": "Cars",
+  "url": "http://localhost:8000",
+  "tests": [{
+    "id": "012c4c56-db03-4c33-ba06-1cd1129ad833",
+    "name": "login",
+    "commands": [{
+      "id": "a451eeb7-b8af-4f05-8e47-65517d58d7b5",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6ae791ed-70f2-4ce1-9b74-562e509cc287",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1936x1048",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f9a48ea8-b5ed-45a2-98ab-517b891e726b",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Login",
+      "targets": [
+        ["linkText=Login", "linkText"],
+        ["css=li:nth-child(8) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Login')]", "xpath:link"],
+        ["xpath=//a[@href='http://localhost:8000/login']", "xpath:href"],
+        ["xpath=//li[8]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Login')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d06cdd95-b003-4441-aef8-ae4ae2109eaa",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//div/input", "xpath:position"]
+      ],
+      "value": "laci@laci.hu"
+    }, {
+      "id": "5f003c09-7eb8-445e-8816-b4cd3039f6b4",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Laci1234"
+    }, {
+      "id": "e956349d-295c-4112-8ba2-08c1926f2300",
+      "comment": "",
+      "command": "click",
+      "target": "css=.px-4",
+      "targets": [
+        ["css=.px-4", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "f97b9ad9-66c6-42cd-9961-eaea0908ac96",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["012c4c56-db03-4c33-ba06-1cd1129ad833"]
+  }],
+  "urls": ["http://localhost:8000/"],
+  "plugins": []
+}
