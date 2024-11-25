@@ -10,5 +10,5 @@
             <div class="col">{{$entity->name}}</div>
         </li>
     </ul>
-    <a href="{{ route('fuels.index') }}">Vissza</a>
+    <a href="{{ route('colors.index') }}">Vissza</a>
 @endsection

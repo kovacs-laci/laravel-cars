@@ -10,11 +10,9 @@ use App\Models\Maker;
 use App\Models\Transmission;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class VehicleController extends Controller
 {
-//    use ValidationRules;
     /**
      * Display a listing of the resource.
      */
@@ -48,9 +46,9 @@ class VehicleController extends Controller
     public function store(VehicleRequest $request)
     {
         $entity = new Vehicle();
-//        $entity = $this->setEntityData($entity, $request);
-//        $entity->save();
-        $entity->create($request->all());
+        $entity = $this->setEntityData($entity, $request);
+        $entity->save();
+//        $entity->create($request->all());
 
         return redirect(route('vehicles.index') . '#' . $entity->id);
     }
@@ -69,9 +67,6 @@ class VehicleController extends Controller
     public function edit(string $id)
     {
         $vehicle = Vehicle::findOrFail($id);
-        if (!$vehicle) {
-            return view('404');
-        }
         // Access the related models as properties, not methods
         $maker = $vehicle->maker;  // Access the Maker model instance
         $model = $vehicle->model;  // Access the Model instance
@@ -116,13 +111,13 @@ class VehicleController extends Controller
 
     private function setEntityData(Vehicle $entity, Request $request): ?Vehicle
     {
-        $entity->maker_id = $request->get('maker_id');
-        $entity->model_id = $request->get('model_id');
-        $entity->trim_id = $request->get('trim_id');
-        $entity->fuel_id = $request->get('fuel_id');
-        $entity->body_id = $request->get('body_id');
-        $entity->transmission_id = $request->get('transmission_id');
-        $entity->color_id = $request->get('color_id');
+        $entity->maker_id = $request->get('maker_id') ? $request->get('maker_id') : null;
+        $entity->model_id = $request->get('model_id') ? $request->get('model_id') : null;
+        $entity->trim_id = $request->get('trim_id') ? $request->get('trim_id') : null;
+        $entity->fuel_id = $request->get('fuel_id') ? $request->get('fuel_id') : null;
+        $entity->body_id = $request->get('body_id') ? $request->get('body_id') : null;
+        $entity->transmission_id = $request->get('transmission_id') ? $request->get('transmission_id') : null;
+        $entity->color_id = $request->get('color_id') ? $request->get('color_id') : null;
 
         $entity->registration_plate = strtoupper($request->get('registration_plate'));
         $entity->vin = strtoupper($request->get('vin'));

@@ -6,7 +6,7 @@
     <!-- Simplicity is the ultimate sophistication. - Leonardo da Vinci -->
     @include('error')
 
-    <form action="{{route('fuels.store')}}" method="post">
+    <form action="{{ route('fuels.store') }}" method="post">
         @csrf
         <fieldset>
             <label for="name">Megnevezés</label>

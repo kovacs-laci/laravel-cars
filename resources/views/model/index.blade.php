@@ -1,15 +1,13 @@
 @extends('layout')
 
 @section('content')
-    <div>
-        <!-- The best way to take care of the future is to take care of the present moment. - Thich Nhat Hanh -->
-    </div>
+    <!-- The best way to take care of the future is to take care of the present moment. - Thich Nhat Hanh -->
     <h1>Modellek</h1>
     <div class="container">
         @include('success')
         <form method="post" action="{{ route('models.filter') }}">
             @csrf
-            <select id="maker_id" name="maker_id" title="Gyártók">
+            <select id="maker-id" name="maker_id" title="Gyártók">
                 <option value="0">-- Válassz gyártót --</option>
                 @foreach($makers as $maker)
                     <option value="{{ $maker->id }}" {{($maker->id == $selectedMakerId ? 'selected' : '')}}>{{ $maker->name }}</option>
@@ -25,9 +23,12 @@
         @endif
 
         <br>
-        <a href="{{ route('models.create') }}" title="Új">Új hozzáadása</a>
+        @if(auth()->check())
+            <a class="plus" id="add-new" href="{{ route('models.create') }}" title="Új"><i class="fa fa-plus"></i> Új</a>
+        @endif
 
         <ul>
+            @include('basic-table-header')
             @foreach($models as $model)
                 <li class="row {{ $loop->iteration % 2 == 0 ? 'even' : 'odd' }}">
                     <div class="col id">{{ $model->id }}</div>

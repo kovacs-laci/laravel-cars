@@ -9,7 +9,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/jquery-3.7.1.js') }}"></script>
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('fontawesome/css/all.css') }}" >
 
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
@@ -35,7 +35,7 @@
                         <li>
                             <form class="logout" action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <button type="submit">Kijelentkezés ({{ auth()->user()->name }})</button>
+                                <button type="submit">Kijelentkezés</button>
                             </form>
                         </li>
                     @else

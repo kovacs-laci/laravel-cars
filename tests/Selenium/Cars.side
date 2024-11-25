@@ -17,7 +17,7 @@
       "id": "6ae791ed-70f2-4ce1-9b74-562e509cc287",
       "comment": "",
       "command": "setWindowSize",
-      "target": "1936x1048",
+      "target": "1920x1080",
       "targets": [],
       "value": ""
     }, {
@@ -60,27 +60,218 @@
         ["xpath=//div[2]/input", "xpath:position"]
       ],
       "value": "Laci1234"
+    }]
+  }, {
+    "id": "79789eff-627e-4567-bab9-72a13d8e1b38",
+    "name": "logout",
+    "commands": [{
+      "id": "d0905c71-0736-4d51-a88a-b491f0678c69",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
     }, {
-      "id": "e956349d-295c-4112-8ba2-08c1926f2300",
+      "id": "3c165fdf-e798-4622-a45d-7870fd2eb11c",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b8d58e75-73ca-4bdf-8284-36167ca0c567",
       "comment": "",
       "command": "click",
-      "target": "css=.px-4",
+      "target": "xpath=//button[contains(.,'Kijelentkezés')]",
       "targets": [
-        ["css=.px-4", "css:finder"],
+        ["css=button", "css:finder"],
         ["xpath=//button[@type='submit']", "xpath:attributes"],
-        ["xpath=//button", "xpath:position"]
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Kijelentkezés')]", "xpath:innerText"]
       ],
       "value": ""
+    }, {
+      "id": "d6a568ca-2aa1-4c2b-87d4-08fdd629170d",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//a[@href='http://localhost:8000/login']",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "644d33f6-c971-4490-acda-d773337e6d14",
+    "name": "Checking menu items",
+    "commands": [{
+      "id": "6812d742-6a05-40ba-8675-311b7e7ceda6",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3a6f8d77-8335-4f3b-aadd-2f044c32694d",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "315b1291-513b-4d82-92f0-06fe93457e8c",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//a[@href='http://localhost:8000/vehicles']",
+      "targets": [
+        ["linkText=Járművek", "linkText"],
+        ["css=li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Járművek')]", "xpath:link"],
+        ["xpath=//a[@href='http://localhost:8000/vehicles']", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Járművek')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fb9b50b2-5ef1-4301-b0e5-b60cf1aeb7b2",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//a[@href='http://localhost:8000/makers']",
+      "targets": [
+        ["linkText=Gyártók", "linkText"],
+        ["css=li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Gyártók')]", "xpath:link"],
+        ["xpath=//a[@href='http://localhost:8000/makers']", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Gyártók')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e584a08b-1291-40fa-a0ac-ef59a229b9bf",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//a[@href='http://localhost:8000/models']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7719a2f6-f8ad-4080-a710-4aa64f53faf3",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//a[@href='http://localhost:8000/trims']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8903c3c7-8e25-41f7-b7a4-ace813653d42",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//a[@href='http://localhost:8000/bodies']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d1834996-5fb7-401b-a554-a0105df2cba1",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//a[@href='http://localhost:8000/transmissions']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "55314607-90f5-49c1-b7d4-4446347d7703",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//a[@href='http://localhost:8000/fuels']",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "b0559fd4-9647-40f0-ac16-ffb999620197",
+    "name": "Járművek",
+    "commands": [{
+      "id": "21cc468d-f89f-4706-a152-8a831912d487",
+      "comment": "",
+      "command": "open",
+      "target": "/vehicles",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e569a617-ae68-4a7e-8ee5-c5eccd2f8fb3",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3a636720-b25b-4778-8a8f-f17980661f8e",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=h1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "57e1bae8-02f4-42c4-84de-4d471cee466d",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h1",
+      "targets": [],
+      "value": "Járművek"
+    }, {
+      "id": "4ba85afe-66bf-4d65-a392-4162870e709e",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=col-head-id",
+      "targets": [
+        ["css=.table-head > .col:nth-child(1)", "css:finder"],
+        ["xpath=//div[2]/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "43d7e2c0-f148-409f-ae09-60432f040fb8",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=col-head-id",
+      "targets": [],
+      "value": "#"
+    }, {
+      "id": "ca00d8e7-9086-4c2f-a19a-1cb82b8bd9cc",
+      "comment": "",
+      "command": "executeScript",
+      "target": " return window.getComputedStyle(document.querySelector('#col-head-id')).fontWeight.trim();",
+      "targets": [],
+      "value": "boldWeight"
+    }, {
+      "id": "a1a1d423-8acf-45dd-89b4-734ff39378a2",
+      "comment": "",
+      "command": "assert",
+      "target": "boldWeight",
+      "targets": [],
+      "value": "700"
+    }, {
+      "id": "f8957b96-7285-4521-8c04-4eaacf482db4",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=col-head-registration-plate",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "99d9123f-208f-4c47-a693-0405d6fbec03",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=col-head-registration-plate",
+      "targets": [],
+      "value": "Rendszám"
+    }, {
+      "id": "6baa6109-7523-440a-abf8-1d28c1343bab",
+      "comment": "",
+      "command": "executeScript",
+      "target": " return window.getComputedStyle(document.querySelector('#col-head-registration-plate')).fontWeight.trim();",
+      "targets": [],
+      "value": "boldWeight"
+    }, {
+      "id": "44ffd526-5632-4e91-8813-fe6b6621bb6c",
+      "comment": "",
+      "command": "assert",
+      "target": "boldWeight",
+      "targets": [],
+      "value": "700"
     }]
   }],
-  "suites": [{
-    "id": "f97b9ad9-66c6-42cd-9961-eaea0908ac96",
-    "name": "Default Suite",
-    "persistSession": false,
-    "parallel": false,
-    "timeout": 300,
-    "tests": ["012c4c56-db03-4c33-ba06-1cd1129ad833"]
-  }],
+  "suites": [],
   "urls": ["http://localhost:8000/"],
   "plugins": []
 }

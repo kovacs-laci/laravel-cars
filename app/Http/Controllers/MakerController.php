@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BasicRequest;
 use App\Models\Maker;
 use App\Models\Model;
-use App\Traits\ValidationRules;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class MakerController extends Controller
 {
-    use ValidationRules;
-
     /**
      * Display a listing of the resource.
      */
@@ -36,15 +33,12 @@ class MakerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BasicRequest $request)
     {
-        $validationRules = $this->getNameValidationRules();
-        $request->validate($validationRules[0], $validationRules[1]);
-        $maker  = new Maker();
-        $maker->name = $request->input('name');
-        $maker->save();
+        $entity  = new Maker();
+        $entity->create($request->all());
 
-        return redirect()->route('makers.index')->with('success', "{$maker->name} sikeresen létrehozva");
+        return redirect()->route('makers.index')->with('success', "$request->name sikeresen létrehozva");
     }
 
     /**
@@ -52,7 +46,7 @@ class MakerController extends Controller
      */
     public function show(string $id)
     {
-        $maker = Maker::find($id);
+        $maker = Maker::findOrFail($id);
         $models = $maker->models();
 
         return view('maker.show', compact('maker', 'models'));
@@ -63,22 +57,20 @@ class MakerController extends Controller
      */
     public function edit(string $id)
     {
-        $maker = Maker::find($id);
+        $entity = Maker::findOrFail($id);
 
-        return view('maker.edit', compact('maker'));
+        return view('maker.edit', compact('entity'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BasicRequest $request, string $id)
     {
-        $request->validate($this->getNameValidationRules());
-        $maker  = Maker::find($id);
-        $maker->name = $request->input('name');
-        $maker->save();
+        $entity  = Maker::findOrFail($id);
+        $entity->update($request->all());
 
-        return redirect()->route('makers.index')->with('success', "{$maker->name} sikeresen módosítva");
+        return redirect()->route('makers.index')->with('success', "$request->name sikeresen módosítva");
     }
 
     /**
@@ -86,30 +78,31 @@ class MakerController extends Controller
      */
     public function destroy(string $id)
     {
-        $maker  = Maker::find($id);
-        $maker->delete();
+        $entity  = Maker::find($id);
+        if ($entity) {
+            $entity->delete();
+        }
 
         return redirect()->route('makers.index')->with('success', "Sikeresen törölve");
     }
 
     public function showModels(string $id)
     {
-//        $sortBy = request()->query('sort_by', 'name');
-//        $sortDir = request()->query('sort_dir', 'asc');
-        $maker = Maker::find($id);
-        $models = $maker->models(); //->orderBy($sortBy, $sortDir)->paginate(config('app.pagination'));
+        $sortBy = request()->query('sort_by', 'name');
+        $sortDir = request()->query('sort_dir', 'asc');
+        $maker = Maker::findOrFail($id);
+        $models = $maker->models->orderBy($sortBy, $sortDir)->paginate(config('app.pagination'));
 
         return view('maker.models', compact('maker', 'models'));
     }
 
-    public static function getLogo($maker)
+    public static function getLogo($entity)
     {
-//        $maker = Maker::find($id);
-        if (empty($maker->logo)) {
+        if (empty($entity->logo)) {
             return '';
         }
 
-        return env('LOGO_PATH') . $maker->logo;
+        return env('LOGO_PATH') . $entity->logo;
     }
 
     private function getAbc()
@@ -131,21 +124,18 @@ class MakerController extends Controller
         $abc = $this->getAbc();
         $needle = $request->get('needle');
         $makers = Maker::orderBy('name')->where('name','LIKE',"%$needle%")->paginate(config('app.pagination'));
-//        if (!$makers) {
-//            return view('404');
-//        }
 
         return view('maker.index', compact('makers', 'abc'));
     }
 
-    public function fetchModels($makerId)
+    public function fetchModels($entityId)
     {
-        $maker = Maker::find($makerId);
+        $entity = Maker::find($entityId);
         $result['data'] = Model::orderby("name")
             ->select('id','name')
-            ->where('maker_id', $makerId)
+            ->where('maker_id', $entityId)
             ->get();;
-        $result['logo'] = $this->getLogo($maker);
+        $result['logo'] = $this->getLogo($entity);
 
         return response()->json($result);
     }

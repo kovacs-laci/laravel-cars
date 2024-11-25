@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BasicRequest;
 use App\Models\Transmission;
-use App\Traits\ValidationRules;
-use Illuminate\Http\Request;
 
 class TransmissionController extends Controller
 {
-    use ValidationRules;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $transmissions = Transmission::all();
-        return view('transmission.index', compact('transmissions'));
+        $entities = Transmission::all();
+        return view('transmission.index', compact('entities'));
     }
 
     /**
@@ -29,14 +27,12 @@ class TransmissionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BasicRequest $request)
     {
-        $request->validate($this->getNameValidationRules());
-        $transmission  = new Transmission();
-        $transmission->name = $request->input('name');
-        $transmission->save();
+        $entity  = new Transmission();
+        $entity->create($request->all());
 
-        return redirect()->route('transmissions.index')->with('success', "{$transmission->name} sikeresen létrehozva");
+        return redirect()->route('transmissions.index')->with('success', "{$entity->name} sikeresen létrehozva");
     }
 
     /**
@@ -44,8 +40,9 @@ class TransmissionController extends Controller
      */
     public function show(string $id)
     {
-        $transmission = Transmission::find($id);
-        return view('transmission.show', compact('transmission'));
+        $entity = Transmission::findOrFail($id);
+
+        return view('transmission.show', compact('entity'));
     }
 
     /**
@@ -53,21 +50,20 @@ class TransmissionController extends Controller
      */
     public function edit(string $id)
     {
-        $transmission = Transmission::find($id);
-        return view('transmission.edit', compact('transmission'));
+        $entity = Transmission::findOrFail($id);
+
+        return view('transmission.edit', compact('entity'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BasicRequest $request, string $id)
     {
-        $request->validate($this->getNameValidationRules());
-        $transmission  = Transmission::find($id);
-        $transmission->name = $request->input('name');
-        $transmission->save();
+        $entity = Transmission::findOrFail($id);
+        $entity->update($request->all());
 
-        return redirect()->route('transmissions.index')->with('success', "{$transmission->name} sikeresen módosítva");
+        return redirect()->route('transmissions.index')->with('success', "{$entity->name} sikeresen módosítva");
     }
 
     /**
@@ -75,8 +71,10 @@ class TransmissionController extends Controller
      */
     public function destroy(string $id)
     {
-        $transmission  = Transmission::find($id);
-        $transmission->delete();
+        $entity = Transmission::find($id);
+        if ($entity) {
+            $entity->delete();
+        }
 
         return redirect()->route('transmissions.index')->with('success', "Sikeresen törölve");
     }

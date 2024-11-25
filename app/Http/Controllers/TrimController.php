@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TrimRequest;
 use App\Models\Maker;
 use App\Models\Model;
 use App\Models\Trim;
-use App\Traits\ValidationRules;
 use Illuminate\Http\Request;
 
 class TrimController extends Controller
 {
-
-    use ValidationRules;
-
     /**
      * Display a listing of the resource.
      */
@@ -41,14 +38,11 @@ class TrimController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TrimRequest $request)
     {
-        $request->validate($this->getValidationRules());
         Trim::create($request->all());
 
         return $this->filter($request)->with('success', "{$request->name} sikeresen létrehozva");
-
-//        return redirect()->route('trims.index')->with('success', "{$request->name} sikeresen létrehozva");
     }
 
     /**
@@ -64,7 +58,7 @@ class TrimController extends Controller
      */
     public function edit(string $id)
     {
-        $trim = Trim::find($id);
+        $trim = Trim::findOrFail($id);
         $model = $trim->model;
         $maker = $model->maker;
         $models = $maker->models;
@@ -75,17 +69,25 @@ class TrimController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TrimRequest $request, string $id)
     {
-        //
+        $trim = Trim::findOrFail($id);
+        $trim->update($request->all());
+
+        return $this->filter($request)->with('success', "{$request->name} sikeresen módosítva");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        $entity = Trim::find($id);
+        if ($entity) {
+            $entity->delete();
+        }
+
+        return $this->filter($request)->with('success', "Sikeresen törölve");
     }
 
     public function filter(Request $request)
@@ -105,14 +107,5 @@ class TrimController extends Controller
         $trims = $model->trims;
 
         return view('trim.index', compact('trims', 'models', 'makers', 'selectedMakerId', 'selectedModelId', 'logoPath'));
-    }
-
-    private function getValidationRules()
-    {
-        return [
-            $this->getNameValidationRules(),
-            ['maker_id' => 'required|exists:makers,id',]
-        ];
-
     }
 }

@@ -1,6 +1,7 @@
 a {
     text-decoration: none;
 }
+
 img {
     width: fit-content;
 }
@@ -24,10 +25,23 @@ nav li {
 fieldset {
     border: none;
 }
+.alert-success {
+    background-color: lightgreen;
+}
+
+.alert-warning {
+    background-color: lightyellow;
+}
+
+.center {
+    text-align: center;
+    width: 100%;
+}
 
 .bold {
     font-weight: bold;
 }
+
 .col {
     padding-left: 5px;
 }
@@ -43,9 +57,7 @@ fieldset {
 .even {
     background-color: lightgray;
 }
-.header {
-    font-weight: bold;
-}
+
 .logout {
     display: inline;
 }
@@ -55,6 +67,7 @@ fieldset {
     width: fit-content;
     text-align: center;
 }
+
 .paginator svg {
     width: 1em;
     height: 1em;
@@ -65,9 +78,15 @@ fieldset {
 .edit {
     color: tomato;
 }
+
 .trash {
     color: crimson;
 }
+
+.plus {
+    color: green;
+}
+
 .right {
     display: inline-flex;
     margin-left: auto;
@@ -79,7 +98,30 @@ fieldset {
     padding: 5px;
 }
 
-
 .uppercase {
     text-transform:uppercase;
+}
+
+.table-head {
+    font-weight: bold;
+    border-bottom: 1px solid darkgray;
+}
+
+.div-table {
+    display: table;
+    width: auto;
+    /*background-color: #eee;*/
+    /*border: 1px solid #666666;*/
+    border-spacing: 5px; /* cellspacing:poor IE support for  this */
+}
+.div-table-row {
+    display: table-row;
+    width: auto;
+    clear: both;
+}
+.div-table-col {
+    float: left; /* fix for  buggy browsers */
+    display: table-column;
+    width: 200px;
+    /*background-color: #ccc;*/
 }

@@ -12,7 +12,7 @@ class VehicleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -35,13 +35,13 @@ class VehicleRequest extends FormRequest
             ];
         }
         return [
-            'registration_plate' => 'required|min:6,registration_plate', Rule::unique('vehicles')->ignore($id),
-            'vin' => 'required|vin', Rule::unique('vehicles')->ignore($id),
-            'engine_id' => 'min:3',
-            'production_year' => 'numeric|min:1900|max:' . date('Y'),
-            'capacity' => 'numeric|min:1',
-            'power' => 'numeric|min:1',
-            'valid_until' => 'date',
+            'registration_plate' => 'required|min:6,registration_plate',
+            'vin' => 'required|min:3',
+            'engine_id' => 'nullable|min:3',
+            'production_year' => 'nullable|numeric|min:1900|max:' . date('Y'),
+            'capacity' => 'nullable|numeric|min:1',
+            'power' => 'nullable|numeric|min:1',
+            'valid_until' => 'nullable|date',
             'notes' => 'max:65535',
         ];
     }

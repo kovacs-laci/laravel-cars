@@ -1,12 +1,12 @@
 @extends('layout')
 
 @section('content')
-<h1>Új sebváltó</h1>
+<h1>Új váltó</h1>
 <div>
     <!-- Simplicity is the ultimate sophistication. - Leonardo da Vinci -->
     @include('error')
 
-    <form action="{{route('transmissions.store')}}" method="post">
+    <form action="{{ route('transmissions.store') }}" method="post">
         @csrf
         <fieldset>
             <label for="name">Megnevezés</label>

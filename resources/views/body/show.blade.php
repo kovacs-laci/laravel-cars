@@ -1,13 +1,14 @@
 @extends('layout')
 
-<div>
-    <!-- I begin to speak only when I am certain what I will say is not better left unsaid. - Cato the Younger -->
-</div>
-
 @section('content')
-    <h1>"{{ $body->name }}" karosszéria</h1>
-    <div class="row">
-        <div>{{ $body->id }}</div>
-        <div>{{$body->name}}</div>
-    </div>
+    <!-- I begin to speak only when I am certain what I will say is not better left unsaid. - Cato the Younger -->
+    <h1>{{ $entity->name }}</h1>
+    <ul>
+        @include('basic-table-short-header')
+        <li class="row">
+            <div class="col">{{ $entity->id }}</div>
+            <div class="col">{{$entity->name}}</div>
+        </li>
+    </ul>
+    <a href="{{ route('bodies.index') }}">Vissza</a>
 @endsection

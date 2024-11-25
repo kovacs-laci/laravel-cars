@@ -5,7 +5,7 @@
     <div>
         <!-- Simplicity is the ultimate sophistication. - Leonardo da Vinci -->
         @include('error')
-        <form action="{{ route('bodies.update', $entity->id) }}" method="post">
+        <form action="{{ route('colors.update', $entity->id) }}" method="post">
             @csrf
             @method('PATCH')
             <fieldset>
@@ -13,7 +13,7 @@
                 <input type="text" id="name" name="name" required value="{{ old('name', $entity->name) }}">
             </fieldset>
             <button type="submit">Ment</button>
-            <a href="{{ route('bodies.index') }}">Mégse</a>
+            <a href="{{ route('colors.index') }}">Mégse</a>
         </form>
     </div>
 @endsection

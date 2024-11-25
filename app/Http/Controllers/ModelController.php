@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ModelRequest;
 use App\Models\Maker;
 use App\Models\Model;
 use App\Models\Trim;
-use App\Traits\ValidationRules;
 use Illuminate\Http\Request;
 
 class ModelController extends Controller
 {
-    use ValidationRules;
     /**
      * Display a listing of the resource.
      */
@@ -21,6 +20,7 @@ class ModelController extends Controller
         $models = []; //Model::all(); //orderBy($sortBy, $sortDir)->paginate(config('app.pagination'));
         $makers = Maker::all();
         $selectedMakerId = 0;
+
         return view('model.index', compact('models', 'makers', 'selectedMakerId'));
     }
 
@@ -30,15 +30,15 @@ class ModelController extends Controller
     public function create()
     {
         $makers = Maker::all();
+
         return view('model.create', compact('makers'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ModelRequest $request)
     {
-        $request->validate($this->getValidationRules());
         Model::create($request->all());
 
         return redirect()->route('models.index')->with('success', "{$request->name} sikeresen létrehozva");
@@ -50,6 +50,7 @@ class ModelController extends Controller
     public function show(string $id)
     {
         $model = Model::find($id);
+
         return view('model.show', compact('model'));
     }
 
@@ -60,19 +61,17 @@ class ModelController extends Controller
     {
         $model = Model::find($id);
         $makers = Maker::all();
+
         return view('model.edit', compact('model', 'makers'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ModelRequest $request, string $id)
     {
-        $request->validate($this->getValidationRules());
-        $model  = Model::find($id);
-        $model->name = $request->input('name');
-        $model->maker_id = $request->input('maker_id');
-        $model->save();
+        $model  = Model::findOrFail($id);
+        $model->update($request->all());
 
         return redirect()->route('models.index')->with('success', "{$model->name} sikeresen módosítva");
     }
@@ -83,7 +82,9 @@ class ModelController extends Controller
     public function destroy(string $id)
     {
         $model  = Model::find($id);
-        $model->delete();
+        if ($model) {
+            $model->delete();
+        }
 
         return redirect()->route('models.index')->with('success', "Sikeresen törölve");
     }
@@ -99,15 +100,6 @@ class ModelController extends Controller
         $makers = Maker::all();
         $models = $maker->models;
         return view('model.index', compact('models', 'makers', 'selectedMakerId', 'logoPath'));
-    }
-
-    private function getValidationRules()
-    {
-        return [
-            $this->getNameValidationRules(),
-            ['maker_id' => 'required|exists:makers,id',]
-        ];
-
     }
 
     public function fetchTrims($modelId)

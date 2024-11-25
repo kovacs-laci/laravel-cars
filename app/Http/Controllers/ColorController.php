@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BasicRequest;
-use App\Models\Body;
+use App\Models\Color;
 
-class BodyController extends Controller
+class ColorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $entities = Body::all();
-        return view('body.index', compact('entities'));
+        $entities = Color::all();
+        return view('color.index', compact('entities'));
     }
 
     /**
@@ -21,7 +21,7 @@ class BodyController extends Controller
      */
     public function create()
     {
-        return view('body.create');
+        return view('color.create');
     }
 
     /**
@@ -29,7 +29,7 @@ class BodyController extends Controller
      */
     public function store(BasicRequest $request)
     {
-        $entity  = new Body();
+        $entity  = new Color();
         $entity->create($request->all());
 
         return redirect()->route('bodies.index')->with('success', "{$entity->name} sikeresen létrehozva");
@@ -40,9 +40,9 @@ class BodyController extends Controller
      */
     public function show(string $id)
     {
-        $entity = Body::findOrFail($id);
+        $entity = Color::findOrFail($id);
 
-        return view('body.show', compact('entity'));
+        return view('color.show', compact('entity'));
     }
 
     /**
@@ -50,9 +50,9 @@ class BodyController extends Controller
      */
     public function edit(string $id)
     {
-        $entity = Body::findOrFail($id);
+        $entity = Color::findOrFail($id);
 
-        return view('body.edit', compact('entity'));
+        return view('color.edit', compact('entity'));
     }
 
     /**
@@ -60,10 +60,10 @@ class BodyController extends Controller
      */
     public function update(BasicRequest $request, string $id)
     {
-        $entity = Body::findOrFail($id);
+        $entity = Color::findOrFail($id);
         $entity->update($request->all());
 
-        return redirect()->route('bodies.index')->with('success', "{$entity->name} sikeresen módosítva");
+        return redirect()->route('colors.index')->with('success', "{$entity->name} sikeresen módosítva");
     }
 
     /**
@@ -71,7 +71,7 @@ class BodyController extends Controller
      */
     public function destroy(string $id)
     {
-        $entity = Body::find($id);
+        $entity = Color::find($id);
         if ($entity) {
             $entity->delete();
         }

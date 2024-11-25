@@ -24,12 +24,17 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // Flush the session to clear old data
+        $request->session()->flush();
+
+        // Authenticate the user
         $request->authenticate();
 
+        // Regenerate the session to prevent session fixation
         $request->session()->regenerate();
 
-//        return redirect()->intended(route('/', absolute: false));
-        return redirect('/');
+        // Redirect to home or intended route
+        return redirect()->intended(route('home', absolute: false));
     }
 
     /**

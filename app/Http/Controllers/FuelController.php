@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BasicRequest;
 use App\Models\Fuel;
-use App\Traits\ValidationRules;
-use Illuminate\Http\Request;
 
 class FuelController extends Controller
 {
-    use ValidationRules;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $fuels = Fuel::all();
-        return view('fuel.index', compact('fuels'));
+        $entities = Fuel::all();
+        return view('fuel.index', compact('entities'));
     }
 
     /**
@@ -29,14 +27,12 @@ class FuelController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BasicRequest $request)
     {
-        $request->validate($this->getNameValidationRules());
-        $fuel  = new Fuel();
-        $fuel->name = $request->input('name');
-        $fuel->save();
+        $entity = new Fuel();
+        $entity->create($request->all());
 
-        return redirect()->route('fuels.index')->with('success', "{$fuel->name} sikeresen létrehozva");
+        return redirect()->route('fuels.index')->with('success', "{$entity->name} sikeresen létrehozva");
     }
 
     /**
@@ -44,8 +40,9 @@ class FuelController extends Controller
      */
     public function show(string $id)
     {
-        $fuel = Fuel::find($id);
-        return view('fuel.show', compact('fuel'));
+        $entity = Fuel::findOrFail($id);
+
+        return view('fuel.show', compact('entity'));
     }
 
     /**
@@ -53,21 +50,20 @@ class FuelController extends Controller
      */
     public function edit(string $id)
     {
-        $fuel = Fuel::find($id);
-        return view('fuel.edit', compact('fuel'));
+        $entity = Fuel::findOrFail($id);
+
+        return view('fuel.edit', compact('entity'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BasicRequest $request, string $id)
     {
-        $request->validate($this->getNameValidationRules());
-        $fuel  = Fuel::find($id);
-        $fuel->name = $request->input('name');
-        $fuel->save();
+        $entity  = Fuel::findOrFail($id);
+        $entity->update($request->all());
 
-        return redirect()->route('fuels.index')->with('success', "{$fuel->name} sikeresen módosítva");
+        return redirect()->route('fuels.index')->with('success', "{$entity->name} sikeresen módosítva");
     }
 
     /**
@@ -75,8 +71,10 @@ class FuelController extends Controller
      */
     public function destroy(string $id)
     {
-        $fuel  = Fuel::find($id);
-        $fuel->delete();
+        $entity  = Fuel::find($id);
+        if ($entity) {
+            $entity->delete();
+        }
 
         return redirect()->route('fuels.index')->with('success', "Sikeresen törölve");
     }

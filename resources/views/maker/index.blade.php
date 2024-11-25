@@ -5,12 +5,7 @@
 <div>
     <!-- Happiness is not something readymade. It comes from your own actions. - Dalai Lama -->
     @include('success')
-    <div>
-        <form method="post" action="{{route('makers.search')}}" accept-charset="UTF-8">
-            @csrf
-            <input type="search" name="needle" placeholder="Keresés"><button class="btn" type="submit"><i class="fa fa-search"></i></button>
-        </form>
-    </div>
+    @include('search', ['route' => 'makers.search'])
     @isset($abc)
     <nav>
         <ul>
@@ -20,10 +15,13 @@
         </ul>
     </nav>
     @endisset
-    <a href="{{ route('makers.create') }}" title="Új">Új hozzáadás</a>
+    @if(auth()->check())
+        <a class="plus" href="{{ route('makers.create') }}" title="Új"><i class="fa fa-plus"></i> Új</a>
+    @endif
     <br>
     <a href="{{ route('makers.index', ['sort_by' => 'name', 'sort_dir' => 'asc']) }}" title="ABC">&#11205;</a> / <a href="{{ route('makers.index', ['sort_by' => 'name', 'sort_dir' => 'desc']) }}" title="ZYX">&#11206;</a>
     <ul>
+        @include('basic-table-header')
         @foreach($makers as $maker)
             <li class="row {{ $loop->iteration % 2 == 0 ? 'even' : 'odd' }}">
                 <div class="col id">{{ $maker->id }}</div>
@@ -56,16 +54,16 @@
         @endforeach
     </ul>
     @isset($abc)
-    <div class="paginator">
-        {{ $makers
-            ->appends([
-                'sort_by' => request('sort_by'),
-                'sort_dir' => request('sort_dir'),
-            ])
-            ->links()
+        <div class="paginator">
+            {{ $makers
+                ->appends([
+                    'sort_by' => request('sort_by'),
+                    'sort_dir' => request('sort_dir'),
+                ])
+                ->links()
 
-        }}
-    </div>
+            }}
+        </div>
     @endisset
 </div>
 @endsection

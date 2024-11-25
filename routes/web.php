@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BodyController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\FuelController;
 use App\Http\Controllers\MakerController;
 use App\Http\Controllers\ModelController;
@@ -25,9 +26,15 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/bodies', [BodyController::class, 'store'])->name('bodies.store');
     Route::get('/bodies/create', [BodyController::class, 'create'])->name('bodies.create');
-    Route::patch('/bodies/{body}', [BodyController::class, 'update'])->name('bodies.update');
-    Route::get('/bodies/{body}/edit', [BodyController::class, 'edit'])->name('bodies.edit');
-    Route::delete('/bodies/{body}', [BodyController::class, 'destroy'])->name('bodies.destroy');
+    Route::patch('/bodies/{id}', [BodyController::class, 'update'])->name('bodies.update');
+    Route::get('/bodies/{id}/edit', [BodyController::class, 'edit'])->name('bodies.edit');
+    Route::delete('/bodies/{id}', [BodyController::class, 'destroy'])->name('bodies.destroy');
+
+    Route::post('/colors', [ColorController::class, 'store'])->name('colors.store');
+    Route::get('/colors/create', [ColorController::class, 'create'])->name('colors.create');
+    Route::patch('/colors/{id}', [ColorController::class, 'update'])->name('colors.update');
+    Route::get('/colors/{id}/edit', [ColorController::class, 'edit'])->name('colors.edit');
+    Route::delete('/colors/{id}', [ColorController::class, 'destroy'])->name('colors.destroy');
 
     Route::post('/fuels', [FuelController::class, 'store'])->name('fuels.store');
     Route::get('/fuels/create', [FuelController::class, 'create'])->name('fuels.create');
@@ -72,7 +79,10 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/bodies', [BodyController::class, 'index'])->name('bodies.index');
-Route::get('/bodies/{body}', [BodyController::class, 'show'])->name('bodies.show');
+Route::get('/bodies/{id}', [BodyController::class, 'show'])->name('bodies.show');
+
+Route::get('/colors', [ColorController::class, 'index'])->name('colors.index');
+Route::get('/colors/{id}', [ColorController::class, 'show'])->name('colors.show');
 
 Route::get('/makers', [MakerController::class, 'index'])->name('makers.index');
 Route::get('/makers/{maker}', [MakerController::class, 'show'])->name('makers.show');

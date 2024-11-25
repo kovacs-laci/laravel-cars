@@ -83,4 +83,14 @@ $(document).ready(function() {
         var color = $('option:selected',this).css('background-color');
         $(this).css('background-color', color);
     });
+
+    // $('#maker-id').on('change', function () {
+    //     const makerId = $(this).val();
+    //     const addNewLink = $('#add-new');
+    //     if (makerId) {
+    //         addNewLink.attr('href', `/model/create/${makerId}`);
+    //     } else {
+    //         addNewLink.attr('href', '/model/create');
+    //     }
+    // });
 });

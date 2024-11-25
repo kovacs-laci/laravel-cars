@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('trims', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('model_id');
+            'model_id');
             $table->foreign('model_id')->references('id')->on('models');
             $table->string('name')->index();
         });

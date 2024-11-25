@@ -1,9 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <div>
-        <!-- He who is contented is rich. - Laozi -->
-    </div>
+    <!-- He who is contented is rich. - Laozi -->
     <h1>Járművek</h1>
     <div class="container">
         @include('success')
@@ -15,53 +13,64 @@
         @endif
 
         <br>
-        <a href="{{ route('vehicles.create') }}" title="Új">Új hozzáadása</a>
-        <div class="row header">
-            <div class="col">#</div>
-            <div class="col">Rendszám</div>
-            <div class="col">Alvázszám</div>
-            <div class="col">Motorszám</div>
-            <div class="col">Gyártási év</div>
-            <div class="col">Gyártó</div>
-            <div class="col">Model</div>
-            <div class="col">Típus</div>
-            <div class="col">Üzemanyag</div>
-            <div class="col">Műszaki érv.</div>
-            <div class="col">Megjegyzés</div>
-            <div class="col">Műveletek</div>
-        </div>
-        @foreach($vehicles as $vehicle)
-            <div class="row {{ $loop->iteration % 2 == 0 ? 'even' : 'odd' }}">
-                <div class="col id">{{ $vehicle->id }}</div>
-                <div class="col">{{ $vehicle->registration_plate }}</div>
-                <div class="col">{{ $vehicle->vin }}</div>
-                <div class="col">{{ $vehicle->engine_id }}</div>
-                <div class="col">{{ $vehicle->production_year }}</div>
-                <div class="col">{{ $vehicle->maker ? $vehicle->maker->name : "" }}</div>
-                <div class="col">{{ $vehicle->model ? $vehicle->model->name : "" }}</div>
-                <div class="col">{{ $vehicle->trim ? $vehicle->trim->name : "" }}</div>
-                <div class="col">{{ $vehicle->fuel ? $vehicle->fuel->name : "" }}</div>
-                <div class="col">{{ $vehicle->valid_until }}</div>
-                <div class="col">{{ $vehicle->note }}</div>
-                <div class="right">
-                    <div class="col">
-                        <a href="{{ route('vehicles.show', $vehicle->id) }}"><button><i class="fa fa-binoculars" title="Mutat"></i></button></a>
-                    </div>
-                    @if(auth()->check())
+        @if(auth()->check())
+            <a class="plus" href="{{ route('vehicles.create') }}" title="Új"><i class="fa fa-plus"></i> Új</a>
+        @endif
+        <table>
+            <thead class="table-head">
+                <tr>
+                    <td class="col" id="col-head-id">#</td>
+                    <td class="col" id="col-head-registration-plate">Rendszám</td>
+                    <td class="col" id="col-head-vin">Alvázszám</td>
+                    <td class="col" id="col-head-engine-id">Motorszám</td>
+                    <td class="col" id="col-head-production-year">Gyártási év</td>
+                    <td class="col" id="col-head-maker">Gyártó</td>
+                    <td class="col" id="col-head-model">Model</td>
+                    <td class="col" id="col-head-trim">Típus</td>
+                    <td class="col" id="col-head-fuel">Üzemanyag</td>
+                    <td class="col" id="col-head-valid-until">Műszaki érv.</td>
+                    <td class="col" id="col-head-notes">Megjegyzés</td>
+                    <td class="col" id="col-head-actions">Műveletek</td>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($vehicles as $vehicle)
+                <tr class="{{ $loop->iteration % 2 == 0 ? 'even' : 'odd' }}">
+                    <td class="col id">{{ $vehicle->id }}</td>
+                    <td class="col">{{ $vehicle->registration_plate }}</td>
+                    <td class="col">{{ $vehicle->vin }}</td>
+                    <td class="col">{{ $vehicle->engine_id }}</td>
+                    <td class="col">{{ $vehicle->production_year }}</td>
+                    <td class="col">{{ $vehicle->maker ? $vehicle->maker->name : "" }}</td>
+                    <td class="col">{{ $vehicle->model ? $vehicle->model->name : "" }}</td>
+                    <td class="col">{{ $vehicle->trim ? $vehicle->trim->name : "" }}</td>
+                    <td class="col">{{ $vehicle->fuel ? $vehicle->fuel->name : "" }}</td>
+                    <td class="col">{{ $vehicle->valid_until }}</td>
+                    <td class="col">{{ $vehicle->note }}</td>
+                    <td  class="col right">
                         <div class="col">
-                            <a href="{{ route('vehicles.edit', $vehicle->id) }}"><button><i class="fa fa-edit edit" title="Módosít"></i></button></a>
+                            <a href="{{ route('vehicles.show', $vehicle->id) }}"><button><i class="fa fa-binoculars" title="Mutat"></i></button></a>
                         </div>
-                        <div class="col">
-                            <form action="{{ route('vehicles.destroy', $vehicle->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" name="btn-del-model"><i class="fa fa-trash-can trash" title="Töröl"></i></button>
-                            </form>
-                        </div>
-                    @endif
-                </div>
-            </div>
-        @endforeach
+                        @if(auth()->check())
+                            <div class="col">
+                                <a href="{{ route('vehicles.edit', $vehicle->id) }}"><button><i class="fa fa-edit edit" title="Módosít"></i></button></a>
+                            </div>
+                            <div class="col">
+                                <form action="{{ route('vehicles.destroy', $vehicle->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" name="btn-del-model"><i class="fa fa-trash-can trash" title="Töröl"></i></button>
+                                </form>
+                            </div>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+
+
+
+        </table>>
     </div>
 @endsection
 

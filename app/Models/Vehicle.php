@@ -9,6 +9,24 @@ class Vehicle extends EloquentModel
 {
     use HasFactory;
 
+    public $fillable = [
+        'maker_id',
+        'model_id',
+        'trim_id',
+        'fuel_id',
+        'body_id',
+        'transmission_id',
+        'color_id',
+        'registration_plate',
+        'vin',
+        'production_year',
+        'engine_id',
+        'capacity',
+        'power',
+        'valid_until',
+        'notes',
+    ];
+
     public function body()
     {
         return $this->belongsTo(Body::class);

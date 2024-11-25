@@ -36,7 +36,7 @@ class ModelControllerTest extends TestCase
         $this->actingAs(User::factory()->create());
 
         $model = Model::factory()->create();
-        $modelData = ['name' => 'New Model', 'model_id' => $model->id, ];
+        $modelData = ['name' => 'New Model', 'maker_id' => $model->maker->id, ];
 
         $response = $this->post(route('models.store'), $modelData);
 

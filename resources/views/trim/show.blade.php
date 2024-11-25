@@ -7,8 +7,8 @@
         @include('basic-table-short-header')
         <li class="row">
             <div class="col">{{ $entity->id }}</div>
-            <div class="col">{{$entity->name}}</div>
+            <div class="col">{{ $entity->name }}</div>
         </li>
     </ul>
-    <a href="{{ route('fuels.index') }}">Vissza</a>
+    <a href="{{ route('trims.index') }}">Vissza</a>
 @endsection
