@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BasicRequest;
 use App\Models\Body;
-use App\Models\Maker;
 use Illuminate\Http\Request;
 
 class BodyController extends Controller

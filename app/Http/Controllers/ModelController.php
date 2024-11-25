@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ModelRequest;
-use App\Models\Body;
 use App\Models\Maker;
 use App\Models\Model;
 use App\Models\Trim;
