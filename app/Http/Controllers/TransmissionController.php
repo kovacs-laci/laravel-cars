@@ -78,4 +78,18 @@ class TransmissionController extends Controller
 
         return redirect()->route('transmissions.index')->with('success', "Sikeresen törölve");
     }
+
+    public function search(Request $request)
+    {
+        $needle = $request->get('needle');
+        $entities = Transmission::select('*')
+            ->where('name', 'like', "%{$needle}%")
+            ->orderBy('name')
+            ->get();
+        if (empty($entities)) {
+            return view('404');
+        }
+
+        return view('transmissions.index', compact('entities'));
+    }
 }

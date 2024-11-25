@@ -4,7 +4,6 @@
     <!-- The best way to take care of the future is to take care of the present moment. - Thich Nhat Hanh -->
     <h1>Modellek</h1>
     <div class="container">
-        @include('success')
         <form method="post" action="{{ route('models.filter') }}">
             @csrf
             <select id="maker-id" name="maker_id" title="Gyártók">
@@ -21,14 +20,10 @@
         @else
             <img src="" alt="">
         @endif
-
-        <br>
-        @if(auth()->check())
-            <a class="plus" id="add-new" href="{{ route('models.create') }}" title="Új"><i class="fa fa-plus"></i> Új</a>
-        @endif
-
+        @include('success')
+        @include('search', ['route' => 'models.search'])
         <ul>
-            @include('basic-table-header')
+            @include('basic-table-header', ['route' => 'models.create'])
             @foreach($models as $model)
                 <li class="row {{ $loop->iteration % 2 == 0 ? 'even' : 'odd' }}">
                     <div class="col id">{{ $model->id }}</div>

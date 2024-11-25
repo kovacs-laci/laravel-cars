@@ -4,7 +4,6 @@
 <h1>Típusok</h1>
 <div>
     <!-- Happiness is not something readymade. It comes from your own actions. - Dalai Lama -->
-    @include('success')
     <form method="post" action="{{ route('trims.filter') }}">
         @csrf
         <select id="select-maker" name="maker_id" title="Gyártók">
@@ -28,11 +27,10 @@
     @else
         <img src="" alt="">
     @endif
-    @if(auth()->check())
-        <a class="plus" href="{{ route('trims.create') }}" title="Új"><i class="fa fa-plus"></i> Új</a>
-    @endif
+    @include('success')
+    @include('search', ['route' => 'models.search'])
     <ul>
-        @include('basic-table-header')
+        @include('basic-table-header', ['route' => 'trims.create'])
         @foreach($trims as $trim)
             <li class="row {{ $loop->iteration % 2 == 0 ? 'even' : 'odd' }}">
                 <div class="col id">{{ $trim->id }}</div>

@@ -4,18 +4,14 @@
     <!-- He who is contented is rich. - Laozi -->
     <h1>Járművek</h1>
     <div class="container">
-        @include('success')
 
         @if(! empty($logoPath))
             <img id="logo" src="{{$logoPath}}" alt="logo">
         @else
             <img src="" alt="">
         @endif
-
-        <br>
-        @if(auth()->check())
-            <a class="plus" href="{{ route('vehicles.create') }}" title="Új"><i class="fa fa-plus"></i> Új</a>
-        @endif
+        @include('success')
+        @include('search', ['route' => 'vehicles.search'])
         <table>
             <thead class="table-head">
                 <tr>
@@ -30,7 +26,13 @@
                     <td class="col" id="col-head-fuel">Üzemanyag</td>
                     <td class="col" id="col-head-valid-until">Műszaki érv.</td>
                     <td class="col" id="col-head-notes">Megjegyzés</td>
-                    <td class="col" id="col-head-actions">Műveletek</td>
+                    <td class="col" id="col-head-actions" style="display:flex">Műveletek
+                        @if(auth()->check())
+                            <div>
+                                <a class="plus" href="{{ route('vehicles.create') }}" title="Új">&nbsp;<i class="fa fa-plus"></i></a>
+                            </div>
+                        @endif
+                    </td>
                 </tr>
             </thead>
             <tbody>
@@ -67,10 +69,7 @@
                 </tr>
             @endforeach
             </tbody>
-
-
-
-        </table>>
+        </table>
     </div>
 @endsection
 

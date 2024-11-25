@@ -130,4 +130,34 @@ class VehicleController extends Controller
 
         return $entity;
     }
+
+    private function getQuery()
+    {
+        return Vehicle::select('*')
+            ->leftJoin('fuels', 'fuels.id', '=',  'vehicles.fuel_id')
+            ->leftJoin('makers', 'makers.id', '=',  'vehicles.maker_id')
+            ->leftJoin('models', 'models.id', '=',  'vehicles.model_id')
+            ->leftJoin('trims', 'trims.id', '=',  'vehicles.trim_id')
+            ->leftJoin('bodies', 'bodies.id', '=',  'vehicles.body_id')
+            ->leftJoin('transmissions', 'transmissions.id', '=',  'vehicles.transmission_id')
+            ->leftJoin('colors', 'colors.id', '=',  'vehicles.color_id')
+            ;
+    }
+
+    public function search(Request $request) {
+        $needle = $request->get('needle');
+        $vehicles = $this->getQuery()
+            ->orWhere('registration_plate', 'like', "%{$needle}%")
+            ->orWhere('vin', 'like', "%{$needle}%")
+            ->orWhere('engine_id', 'like', "%{$needle}%")
+            ->orWhere('notes', 'like', "%{$needle}%")
+            ->orWhere('makers.name', 'like', "%{$needle}%")
+            ->orWhere('models.name', 'like', "%{$needle}%")
+            ->orderBy('registration_plate')
+            ->get();
+        if (empty($vehicles)) {
+            return view('404');
+        }
+        return view('vehicle/index', ['vehicles' => $vehicles]);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ModelRequest;
+use App\Models\Body;
 use App\Models\Maker;
 use App\Models\Model;
 use App\Models\Trim;
@@ -110,5 +111,21 @@ class ModelController extends Controller
             ->get();
 
         return response()->json($result);
+    }
+
+    public function search(Request $request)
+    {
+        $needle = $request->get('needle');
+        $models = Model::select('*')
+            ->where('name', 'like', "%{$needle}%")
+            ->orderBy('name')
+            ->get();
+        if (empty($models)) {
+            return view('404');
+        }
+        $makers = Maker::all();
+        $selectedMakerId = 0;
+
+        return view('model.index', compact('models', 'makers', 'selectedMakerId'));
     }
 }

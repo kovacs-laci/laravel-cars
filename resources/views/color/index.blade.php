@@ -5,11 +5,9 @@
 <div>
     <!-- Happiness is not something readymade. It comes from your own actions. - Dalai Lama -->
     @include('success')
-    @if(auth()->check())
-        <a class="plus" href="{{ route('colors.create') }}" title="Új"><i class="fa fa-plus"></i> Új</a>
-    @endif
+    @include('search', ['route' => 'colors.search'])
     <ul>
-        @include('basic-table-header')
+        @include('basic-table-header', ['route' => 'colors.create'])
         @foreach($entities as $entity)
             <li class="row {{ $loop->iteration % 2 == 0 ? 'even' : 'odd' }}">
                 <div class="col id">{{ $entity->id }}</div>

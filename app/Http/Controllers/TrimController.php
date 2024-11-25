@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TrimRequest;
+use App\Models\Body;
 use App\Models\Maker;
 use App\Models\Model;
 use App\Models\Trim;
@@ -107,5 +108,19 @@ class TrimController extends Controller
         $trims = $model->trims;
 
         return view('trim.index', compact('trims', 'models', 'makers', 'selectedMakerId', 'selectedModelId', 'logoPath'));
+    }
+
+    public function search(Request $request)
+    {
+        $needle = $request->get('needle');
+        $entities = Trim::select('*')
+            ->where('name', 'like', "%{$needle}%")
+            ->orderBy('name')
+            ->get();
+        if (empty($entities)) {
+            return view('404');
+        }
+
+        return view('trim.index', compact('entities'));
     }
 }

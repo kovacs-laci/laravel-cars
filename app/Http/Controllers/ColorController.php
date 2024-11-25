@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BasicRequest;
+use App\Models\Body;
 use App\Models\Color;
+use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
@@ -77,5 +79,19 @@ class ColorController extends Controller
         }
 
         return redirect()->route('bodies.index')->with('success', "Sikeresen törölve");
+    }
+
+    public function search(Request $request)
+    {
+        $needle = $request->get('needle');
+        $entities = Color::select('*')
+            ->where('name', 'like', "%{$needle}%")
+            ->orderBy('name')
+            ->get();
+        if (empty($entities)) {
+            return view('404');
+        }
+
+        return view('color.index', compact('entities'));
     }
 }

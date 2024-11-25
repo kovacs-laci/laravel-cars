@@ -80,28 +80,35 @@ require __DIR__.'/auth.php';
 
 Route::get('/bodies', [BodyController::class, 'index'])->name('bodies.index');
 Route::get('/bodies/{id}', [BodyController::class, 'show'])->name('bodies.show');
+Route::post('/bodies/search', [BodyController::class, 'search'])->name('bodies.search');
 
 Route::get('/colors', [ColorController::class, 'index'])->name('colors.index');
 Route::get('/colors/{id}', [ColorController::class, 'show'])->name('colors.show');
+Route::post('/colors/search', [ColorController::class, 'search'])->name('colors.search');
 
 Route::get('/makers', [MakerController::class, 'index'])->name('makers.index');
 Route::get('/makers/{maker}', [MakerController::class, 'show'])->name('makers.show');
 Route::get('/makers/filter/{ch}', [MakerController::class, 'filter'])->name('makers.filter');
-Route::post('manufacturers/search', [MakerController::class, 'search'])->name('makers.search');
+Route::post('/makers/search', [MakerController::class, 'search'])->name('makers.search');
 
 Route::get('/fuels', [FuelController::class, 'index'])->name('fuels.index');
 Route::get('/fuels/{fuel}', [FuelController::class, 'show'])->name('fuels.show');
+Route::post('/fuels/search', [FuelController::class, 'search'])->name('fuels.search');
 
 Route::get('/models', [ModelController::class, 'index'])->name('models.index');
 Route::get('/models/{model}', [ModelController::class, 'show'])->name('models.show');
 Route::post('/models/filter', [ModelController::class, 'filter'])->name('models.filter');
+Route::post('/models/search', [ModelController::class, 'search'])->name('models.search');
 
 Route::get('/trims', [TrimController::class, 'index'])->name('trims.index');
 Route::get('/trims/{trim}', [TrimController::class, 'show'])->name('trims.show');
 Route::post('/trims/filter', [TrimController::class, 'filter'])->name('trims.filter');
+Route::post('/trims/search', [TrimController::class, 'search'])->name('trims.search');
 
 Route::get('/transmissions', [TransmissionController::class, 'index'])->name('transmissions.index');
 Route::get('/transmissions/{transmission}', [TransmissionController::class, 'show'])->name('transmissions.show');
+Route::post('/transmissions/search', [TransmissionController::class, 'search'])->name('transmissions.search');
 
 Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicles.index');
 Route::get('/vehicles/{vehicle}', [VehicleController::class, 'show'])->name('vehicles.show');
+Route::post('/vehicles/search', [VehicleController::class, 'search'])->name('vehicles.search');

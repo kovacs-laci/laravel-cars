@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BasicRequest;
+use App\Models\Body;
 use App\Models\Fuel;
+use Illuminate\Http\Request;
 
 class FuelController extends Controller
 {
@@ -77,5 +79,19 @@ class FuelController extends Controller
         }
 
         return redirect()->route('fuels.index')->with('success', "Sikeresen törölve");
+    }
+
+    public function search(Request $request)
+    {
+        $needle = $request->get('needle');
+        $entities = Fuel::select('*')
+            ->where('name', 'like', "%{$needle}%")
+            ->orderBy('name')
+            ->get();
+        if (empty($entities)) {
+            return view('404');
+        }
+
+        return view('fuel.index', compact('entities'));
     }
 }

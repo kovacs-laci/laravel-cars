@@ -4,8 +4,6 @@
 <h1>Gyártók</h1>
 <div>
     <!-- Happiness is not something readymade. It comes from your own actions. - Dalai Lama -->
-    @include('success')
-    @include('search', ['route' => 'makers.search'])
     @isset($abc)
     <nav>
         <ul>
@@ -15,13 +13,11 @@
         </ul>
     </nav>
     @endisset
-    @if(auth()->check())
-        <a class="plus" href="{{ route('makers.create') }}" title="Új"><i class="fa fa-plus"></i> Új</a>
-    @endif
-    <br>
+    @include('success')
+    @include('search', ['route' => 'makers.search'])
     <a href="{{ route('makers.index', ['sort_by' => 'name', 'sort_dir' => 'asc']) }}" title="ABC">&#11205;</a> / <a href="{{ route('makers.index', ['sort_by' => 'name', 'sort_dir' => 'desc']) }}" title="ZYX">&#11206;</a>
     <ul>
-        @include('basic-table-header')
+        @include('basic-table-header', ['route' => 'makers.create'])
         @foreach($makers as $maker)
             <li class="row {{ $loop->iteration % 2 == 0 ? 'even' : 'odd' }}">
                 <div class="col id">{{ $maker->id }}</div>
