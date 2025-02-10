@@ -22,6 +22,7 @@
             <li class="row {{ $loop->iteration % 2 == 0 ? 'even' : 'odd' }}">
                 <div class="col id">{{ $maker->id }}</div>
                 <div class="col">{{$maker->name}}</div>
+                <div class="col"><img src="{{env('APP_LOGO_PATH') . $maker->logo}}" alt="{{$maker->logo}}" title="{{$maker->name}}"></div>
                 <div class="right">
                     <div class="col">
 {{--                        <a href="{{ route('makers.show', $maker->id) }}"><button><i class="fa fa-binoculars" title="Mutat"></i></button></a></div>--}}

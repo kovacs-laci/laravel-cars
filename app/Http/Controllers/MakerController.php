@@ -57,9 +57,9 @@ class MakerController extends Controller
      */
     public function edit(string $id)
     {
-        $entity = Maker::findOrFail($id);
+        $maker = Maker::findOrFail($id);
 
-        return view('maker.edit', compact('entity'));
+        return view('maker.edit', compact('maker'));
     }
 
     /**

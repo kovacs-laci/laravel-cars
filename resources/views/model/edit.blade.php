@@ -18,10 +18,13 @@
                         {{ $selected = '' }}
                         @if($maker->id == $model->maker->id)
                             {{ $selected = 'selected' }}
+                            {{ $logo = $maker->logo }}
+                            {{ $name = $maker->name }}
                         @endif
                         <option value="{{ $maker->id }}" {{ $selected }}>{{ $maker->name }}</option>
                     @endforeach
                 </select>
+                <img src="{{env('APP_LOGO_PATH') . $logo}}" alt="{{$logo}}" title="{{$name}}">
             </fieldset>
             <fieldset>
                 <label for="name">Megnevezés</label>

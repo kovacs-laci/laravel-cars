@@ -93,4 +93,22 @@ $(document).ready(function() {
     //         addNewLink.attr('href', '/model/create');
     //     }
     // });
+
+    $('logo').change(function () {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const output = document.getElementById('logo-preview');
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    })
 });
+
+// document.getElementById('logo').addEventListener('change', function(event) {
+//     const reader = new FileReader();
+//     reader.onload = function() {
+//         const output = document.getElementById('logo-preview');
+//         output.src = reader.result;
+//     }
+//     reader.readAsDataURL(event.target.files[0]);
+// });
