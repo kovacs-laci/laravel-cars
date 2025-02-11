@@ -131,10 +131,7 @@ class MakerController extends Controller
     public function fetchModels($entityId)
     {
         $entity = Maker::find($entityId);
-        $result['data'] = Model::orderby("name")
-            ->select('id','name')
-            ->where('maker_id', $entityId)
-            ->get();;
+        $result['data'] = $entity->models;
         $result['logo'] = $this->getLogo($entity);
 
         return response()->json($result);

@@ -104,10 +104,8 @@ class ModelController extends Controller
 
     public function fetchTrims($modelId)
     {
-        $result['data'] = Trim::orderby("name")
-            ->select('id','name')
-            ->where('model_id', $modelId)
-            ->get();
+        $model = Model::find($modelId);
+        $result['data'] = $model->trims;
 
         return response()->json($result);
     }

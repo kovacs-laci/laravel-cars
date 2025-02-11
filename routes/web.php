@@ -48,14 +48,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/makers/{maker}', [MakerController::class, 'update'])->name('makers.update');
     Route::delete('/makers/{maker}', [MakerController::class, 'destroy'])->name('makers.destroy');
     Route::get('/makers/{maker}/models', [MakerController::class, 'showModels'])->name('makers.models');
-    Route::get('/makers/{maker}/fetch-models', [MakerController::class, 'fetchModels'])->name('makers.fetch.models');
 
     Route::post('/models', [ModelController::class, 'store'])->name('models.store');
     Route::get('/models/create', [ModelController::class, 'create'])->name('models.create');
     Route::get('/models/{model}/edit', [ModelController::class, 'edit'])->name('models.edit');
     Route::patch('/models/{model}', [ModelController::class, 'update'])->name('models.update');
     Route::delete('/models/{model}', [ModelController::class, 'destroy'])->name('models.destroy');
-    Route::get('/models/{model}/fetch-trims', [ModelController::class, 'fetchTrims'])->name('models.fetch.trims');
 
     Route::post('/trims', [TrimController::class, 'store'])->name('trims.store');
     Route::get('/trims/create', [TrimController::class, 'create'])->name('trims.create');
@@ -90,6 +88,7 @@ Route::get('/makers', [MakerController::class, 'index'])->name('makers.index');
 Route::get('/makers/{maker}', [MakerController::class, 'show'])->name('makers.show');
 Route::get('/makers/filter/{ch}', [MakerController::class, 'filter'])->name('makers.filter');
 Route::post('/makers/search', [MakerController::class, 'search'])->name('makers.search');
+Route::get('/makers/{maker}/fetch-models', [MakerController::class, 'fetchModels'])->name('makers.fetch.models');
 
 Route::get('/fuels', [FuelController::class, 'index'])->name('fuels.index');
 Route::get('/fuels/{fuel}', [FuelController::class, 'show'])->name('fuels.show');
@@ -99,6 +98,7 @@ Route::get('/models', [ModelController::class, 'index'])->name('models.index');
 Route::get('/models/{model}', [ModelController::class, 'show'])->name('models.show');
 Route::post('/models/filter', [ModelController::class, 'filter'])->name('models.filter');
 Route::post('/models/search', [ModelController::class, 'search'])->name('models.search');
+Route::get('/models/{model}/fetch-trims', [ModelController::class, 'fetchTrims'])->name('models.fetch.trims');
 
 Route::get('/trims', [TrimController::class, 'index'])->name('trims.index');
 Route::get('/trims/{trim}', [TrimController::class, 'show'])->name('trims.show');
