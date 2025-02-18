@@ -10,6 +10,7 @@ use App\Http\Controllers\TransmissionController;
 use App\Http\Controllers\TrimController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return view('layout');
@@ -18,6 +19,13 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::post('/locale', function () {
+    $locale = request('locale');
+    Session::put('locale', $locale);
+    App::setLocale($locale);
+    return redirect()->back();
+})->name('locale.switch');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

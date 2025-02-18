@@ -22,20 +22,28 @@
         </div>
         <div class="row">
             <img src="{{ asset('img/yellow-car.jpg') }}" alt="logo" width="175" height="100">
+            <form action="{{ route('locale.switch') }}" method="post">
+                @csrf
+                <select name="locale" onchange="this.form.submit()">
+                    <option value="en" {{ App::getLocale() == 'en' ? 'selected' : '' }}>English</option>
+                    <option value="hu" {{ App::getLocale() == 'hu' ? 'selected' : '' }}>Magyar</option>
+                    <!-- Add more languages as needed -->
+                </select>
+            </form>
             <nav>
                 <ul>
-                    <li><a href="{{ route('vehicles.index') }}">Járművek</a></li>
-                    <li><a href="{{ route('makers.index') }}">Gyártók</a></li>
-                    <li><a href="{{ route('models.index') }}">Modellek</a></li>
-                    <li><a href="{{ route('trims.index') }}">Típusok</a></li>
-                    <li><a href="{{ route('bodies.index') }}">Karosszériák</a></li>
-                    <li><a href="{{ route('transmissions.index') }}">Sebváltók</a></li>
-                    <li><a href="{{ route('fuels.index') }}">Üzemanyagok</a></li>
+                    <li><a href="{{ route('vehicles.index') }}">{{ __('messages.vehicles') }}</a></li>
+                    <li><a href="{{ route('makers.index') }}">{{ __('messages.makers') }}</a></li>
+                    <li><a href="{{ route('models.index') }}">{{ __('messages.model') }}</a></li>
+                    <li><a href="{{ route('trims.index') }}">{{ __('messages.trims') }}</a></li>
+                    <li><a href="{{ route('bodies.index') }}">{{ __('messages.bodies') }}</a></li>
+                    <li><a href="{{ route('transmissions.index') }}">{{ __('messages.transmissions') }}</a></li>
+                    <li><a href="{{ route('fuels.index') }}">{{ __('messages.fuels') }}</a></li>
                     @if(auth()->check())
                         <li>
                             <form class="logout" action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <button type="submit">Kijelentkezés</button>
+                                <button type="submit">{{ __('messages.logout') }}</button>
                             </form>
                         </li>
                     @else

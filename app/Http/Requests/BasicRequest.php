@@ -28,13 +28,13 @@ class BasicRequest extends FormRequest
             'name' => 'required|min:3|max:255',
         ];
     }
-
-    public function messages(): array
-    {
-        return [
-            'name.required' => 'Kötelező mező!',
-            'name.min' => 'Legalább 3 karakter legyen!',
-            'name.max' => 'Legfeljebb 255 karakter legyen!',
-        ];
-    }
+//
+//    public function messages(): array
+//    {
+//        return [
+//            'name.required' => 'Kötelező mező!',
+//            'name.min' => 'Legalább 3 karakter legyen!',
+//            'name.max' => 'Legfeljebb 255 karakter legyen!',
+//        ];
+//    }
 }
